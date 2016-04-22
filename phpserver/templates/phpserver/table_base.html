@@ -1,0 +1,21 @@
+{% extends "phpserver/base.html" %}
+{% block main %}
+<div class="table-wrapper">
+  <form action="{% block form_url %}{{ form_url }}{% endblock %}" method="POST">{% csrf_token %}
+    <table class="table table-striped">
+      <thead>
+      {% block table_head %}
+      {% endblock %}
+      </thead>
+      <tbody>
+      {% block table_body %}
+      {% endblock table_body %}
+      </tbody>
+      <tfoot>
+      {% block table_foot %}
+      {% endblock table_foot %}
+      </tfoot>
+    </table>
+  </form>
+</div>
+{% endblock main %}

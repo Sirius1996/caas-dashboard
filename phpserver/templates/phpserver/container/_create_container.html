@@ -1,0 +1,9 @@
+{% extends "phpserver/common/_modal_form.html" %}
+
+{% block form_id %}create_container{% endblock %}
+{% block form_action %}{% url 'phpserver:create_container' %}{% endblock %}
+
+{% block modal_header %}Create Container{% endblock %}
+
+{% block modal-body-right %}This is the help text{% endblock %}
+

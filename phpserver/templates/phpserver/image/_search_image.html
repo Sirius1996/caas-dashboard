@@ -1,0 +1,18 @@
+{% extends "phpserver/common/_modal_form.html" %}
+
+{% block form_id %}search_image{% endblock %}
+{% block form_action %}{% url 'phpserver:search_image' %}{% endblock %}
+
+{% block modal_header %}Search Image{% endblock %}
+
+{% block modal-body %}
+<div class="row">
+  <fieldset>
+    <div class="form-group">
+      <label for="image_search">Search Image</label>
+      <input type="text" class="form-control" id="image_search" name="image_search" placeholder="Name of Image">
+    </div>
+    <button id="search" class="btn btn-default btn-sm" type="submit">Search</button>
+  </fieldset>
+</div>
+{% endblock modal-body %}

@@ -1,0 +1,172 @@
+<div class="modal fade" id="{{ modal_id }}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    {% block header %}
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span>&times</span></button>
+        <!-- <a href="#" class="close" data-dismiss="modal">&times;</a> -->
+        <h3 class="modal-title">{% block modal-header %}{{ modal_header }}{% endblock %}</h3>
+      </div>
+    {% endblock header %}
+    {% block content %}
+      <form id="{% block form_id %}{% endblock %}"
+            action="{% block form-action %}{% url 'phpserver:project' %}{% endblock %}"
+            method="{% block form-method %}POST{% endblock %}"
+            class="{% block form-class %}{% endblock %}"
+            name="{% block form-name %}{% endblock %}">
+      {% csrf_token %}
+        <div class="modal-body">
+        {% block main %}
+          <ul class="nav nav-tabs">
+          <li class="active"><a href="#" data-toggle="tab" data-target="#tab_general">General</a></li>
+            <li><a href="#" data-toggle="tab" data-target="#tab_configuration">Configuration</a></li>
+          </ul>
+          <div class="tab-content">
+            <fieldset id="tab_general" class="active tab-pane">
+              <div class="row">
+                <div class="col-md-6">
+<!--                   <div class="form-group">
+                    <label>Project Name</label>
+                    <input class="form-control" type="text" name="project_name">
+                  </div>
+                  <div class="form-group">
+                    <label>Project Container</label>
+                    <select class="form-control" name="project_env">
+                    <option value selected="selected">Select One</option>
+                    {% for env in env_list %}
+                    <option value="{{env.name}}" >{{env.name}}</option>
+                    <{% endfor %}
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Project Code</label>
+                    <input class="form-control" type="text" name="project_code">
+                  </div> -->`
+                  {{ form }}
+                </div>
+                <div class="col-md-6">
+                  {% block modal-help %}<p>HELP TEXT</p>{% endblock %}
+                </div>
+              </div>
+            </fieldset>
+<!--             <fieldset id="tab_configuration" class="tab-pane">
+              <script id = "ports_template" type="text/template">
+                <tr id_attr="$id" class="row data-row">
+                <td class="col-md-5"><input type="text" class="form-control" placeholder="" field="key" onchange="trySetValue(this)" onkeyup="trySetValue(this)" onclick="trySetValue(this)"></td>
+                <td class="col-md-5"><input type="text" class="form-control" placeholder="" field="value" onchange="set_props()" onkeyup="set_props()" onclick="set_props()"></td>
+                <td class="col-md-2"><input type="button" class="btn btn-danger" onclick="del_prop(this)" value="Remove"></td>
+                </tr>
+              </script>
+              <script type="text/javascript">
+                var targets = ["ports"]
+
+                function get_next_id(target) {
+                var max = -1;
+                $("#" + target + " tr.data-row").each(function () {
+                max = Math.max(max, parseInt($(this).attr("id_attr")));
+                });
+                return max + 1;
+                }
+
+                function set_props() {
+                $(targets).each(function (index, target) {
+                // if (target.match(/.*?array.*/) != null) {
+                //   var configs = [];
+                //   $("#" + target + " tr.data-row").each(function (index) {
+                //       configs[index] = $(this).find("td input[field=value]").val();
+                //   });
+                //   $("#job_" + target).val(JSON.stringify(configs));
+                // } else {
+                var configs = {};
+                $("#" + target + " tr.data-row").each(function () {
+                var key = $(this).find("td input[field=key]").val();
+                configs[key] = $(this).find("td input[field=value]").val();
+                });
+                $("#project_" + target).val(JSON.stringify(configs));
+                // }
+                });
+                }
+
+                function set_prop_ports(){
+                var configs = {};
+                $("#ports tr.data-row").each(function(){
+                var key = $(this).find("td input[field=key]").val();
+                configs[key] = $(this).find("td input[field=value]").val();
+                });
+                //$("#project_" + target).val(JSON.stringify(configs));
+                $("#project_" + target).val(configs);
+                }
+
+                function add_prop(target, name, value) {
+                var name = (typeof name === 'undefined') ? '' : name;
+                var value = (typeof value === 'undefined') ? '' : value;
+                $("#" + target + " table").show();
+                var id = get_next_id(target);
+                var tmpl_from = target == "params" ? "args" : target;
+                var template = $("#" + tmpl_from + "_template").text()
+                .replace(/\$id/g, id);
+                template = template.replace(/\$name/g, name);
+                template = template.replace(/\$value/g, value);
+                $("#" + target + " tr").last().after(template);
+                set_props();
+                return id
+                }
+
+                function del_prop(target) {
+                var tr = $(target).closest("tr");
+                var table = $(tr).closest("div").attr("id");
+                tr.remove();
+                if (get_next_id(table) == 0) {
+                $("#"+table+" table").hide();
+                }
+                set_props()
+                }
+                function trySetValue(el) {
+                var prop_id = $(el).parent().attr("id_attr");
+                if (properties[$(el).val()] != "undefined") {
+                $("#configs").find("tr[id_attr='" + prop_id + "']")
+                .find("td input[field=value]").val(properties[$(el).val()]);
+                }
+                set_props();
+                }
+              </script>
+              <input type="hidden" name="project_ports" id="project_ports">
+              <datalist id="properties">
+                <option label="80" value="8080"></option>
+              </datalist>
+              <div class="col-md-6">
+                <div id="ports">
+                  <label>Port</label>
+                  <table style="display: none;">
+                    <tbody>
+                      <tr class="row">
+                        <td class="col-md-5 small-padding">In-Port</td>
+                        <td class="col-md-5 small-padding">Out-Port</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class="input">
+                    <a class="btn btn-default btn-inline" onclick="add_prop('ports');">Add</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <p></p>
+                <p>help text</p>
+              </div>
+            </fieldset> -->
+          </div>
+        {% endblock main %}
+        </div>
+        <div class="modal-footer">
+        {% block footer %}
+          <input class="btn btn-primary pull-right" type="submit" value="{{ submit_label}}">
+          <a  href="{% block cancel_url %}{{ cancel_url }}{% endblock %}"
+           class="btn btn-default cancel">{{ cancel_label }}</a>
+        {% endblock footer %}
+        </div>
+      </form>
+    {% endblock content %}
+    </div>
+  </div>
+</div>

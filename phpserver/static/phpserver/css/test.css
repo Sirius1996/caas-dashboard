@@ -1,0 +1,9 @@
+.sidebar {
+	padding: 20px;
+	background-color: #F9F9F9;
+	top: 51px;
+	position: fixed;
+}
+.content-body{
+	padding: 20px;
+}

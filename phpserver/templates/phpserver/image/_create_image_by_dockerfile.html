@@ -1,0 +1,8 @@
+{% extends "phpserver/common/_modal_form.html" %}
+
+{% block form_id %}create_image_by_dockerfile{% endblock %}
+{% block form_action %}{% url 'phpserver:create_image_by_dockerfile' %}{% endblock %}
+
+{% block modal_header %}Create Image By Dockerfile{% endblock %}
+
+{% block modal-body-right %}This is the help text{% endblock %}

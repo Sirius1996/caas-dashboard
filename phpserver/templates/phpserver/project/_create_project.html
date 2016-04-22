@@ -1,0 +1,9 @@
+{% extends "phpserver/common/_modal_form.html" %}
+
+{% block form_id %}create_project{% endblock %}
+{% block form_action %}{% url 'phpserver:create_project' %}{% endblock %}
+
+{% block modal_header %}Create Project{% endblock %}
+
+{% block modal-body-right %}This is the help text{% endblock %}
+

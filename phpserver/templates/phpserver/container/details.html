@@ -1,0 +1,28 @@
+{% extends 'phpserver/base.html' %}
+{% block title %}Container Details{% endblock %}
+
+{% block main %}
+<div class="row">
+    <div class="col-sm-12">
+      <h3>Container Overview</h3>
+      <div class="">
+        <dl class="dl-horizontal">
+          <dt>Id</dt>
+          <dd>{{container.container_id}}</dd>
+          <dt>Name</dt>
+          <dd>{{container.name}}</dd>
+          <dt>Version</dt>
+          <dd>{{container.version}}</dd>
+          <dt>Image</dt>
+          <dd>{{container.image}}</dd>
+          <dt>Created Time</dt>
+          <dd></dd>
+          <dt>Updated Time</dt>
+          <dd></dd>
+          <dt>Description</dt>
+          <dd>{{container.description}}</dd>
+        </dl>
+      </div>
+    </div>
+</div>
+{% endblock main %}

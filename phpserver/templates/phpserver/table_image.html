@@ -1,0 +1,18 @@
+<table class="table image-table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Image Name</th>
+      <th>Stars</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for image in image_list %}
+    <tr>
+      <td><input type="radio" value="{{image.name}}" name="image_pull"></input></td>
+      <td>{{image.name}}</td>
+      <td>{{image.star_count}}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>

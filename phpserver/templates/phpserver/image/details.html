@@ -1,0 +1,30 @@
+{% extends 'phpserver/base.html' %}
+{% block title %}Image Details{% endblock %}
+
+{% block main %}
+<div class="row">
+    <div class="col-sm-12">
+      <h3>Image Overview</h3>
+      <div class="">
+        <dl class="dl-horizontal">
+          <dt>Image Id</dt>
+          <dd>{{image.img_id}}</dd>
+          <dt>Repository</dt>
+          <dd>{{image.repo}}</dd>
+          <dt>Tag</dt>
+          <dd>{{image.tag}}</dd>
+          <dt>Created Time</dt>
+          <dd></dd>
+          <dt>Updated Time</dt>
+          <dd></dd>
+          <dt>Github Link</dt>
+          <dd><a href="{{image.github_url}}">{{image.github_url}}</a></dd>
+          <dt>Description</dt>
+          <dd></dd>
+          <dt>Dockerfile</dt>
+          <dd>{{image.dockerfile}}</dd>
+        </dl>
+      </div>
+    </div>
+</div>
+{% endblock main %}

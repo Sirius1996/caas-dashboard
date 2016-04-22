@@ -1,0 +1,22 @@
+{% extends "phpserver/table_base.html" %}
+{% block title %}Search Image{% endblock %}
+{% block form_url %}{% url 'phpserver:image' %}{% endblock %}
+{% block table_head %}
+<tr>
+  <th><button class="btn btn-default" type="submit">Pull Image</button></th>
+</tr>
+<tr>
+  <th></th>
+  <th>Image Name</th>
+  <th>Stars</th>
+</tr>
+{% endblock table_head %}
+{% block table_body %}
+{% for image in image_list %}
+<tr>
+  <td><input type="radio" value="{{image.name}}" name="image_pull"></input></td>
+  <td>{{image.name}}</td>
+  <td>{{image.star_count}}</td>
+</tr>
+{% endfor %}
+{% endblock table_body %}

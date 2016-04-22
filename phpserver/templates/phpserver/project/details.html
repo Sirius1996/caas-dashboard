@@ -1,0 +1,16 @@
+{% extends 'phpserver/base.html' %}
+{% block title %}Project Details{% endblock %}
+
+{% block main %}
+<div class="row">
+    <div class="col-sm-12">
+      <h3>Project Overview</h3>
+      <div class="">
+        <dl class="dl-horizontal">
+          <dt>Project Id</dt>
+          <dd>{{project.p_id}}</dd>
+        </dl>
+      </div>
+    </div>
+</div>
+{% endblock main %}

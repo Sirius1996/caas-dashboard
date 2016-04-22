@@ -1,0 +1,50 @@
+{% extends "phpserver/table_base.html" %}
+{% block title %}Project Management{% endblock %}
+
+{% block table_head %}
+<tr class="">
+  <th class="">
+    <div class="">
+      <a id="test_button" href="{% url 'phpserver:create_project' %}" class="btn btn-default btn-sm ajax-modal">{% block action_name %}Create Project{% endblock %}</a>
+    </div>
+  </th>
+</tr>
+<tr>
+  <th>Project Name</th>
+  <th>Version</th>
+  <th>Created Time</th>
+  <th>State</th>
+  <th>Actions</th>
+</tr>
+{% endblock table_head %}
+
+{% block table_body %}
+  {% for project in project_list %}
+    <tr>
+      <td><a href="/phpserver/project/details/{{project.p_id}}">{{project.name}}</a></td>
+      <td>{{project.version}}</td>
+      <td>{{project.created_at}}</td>
+      {% if project.state %}
+      <td>Active</td>
+      {% else %}
+      <td>Stopped</td>
+      {% endif %}
+      <td>
+        <div class="btn-group">
+          <a href="#" class="btn btn-default btn-sm">Details</a>
+          <a href="#" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+            <b style="visibility:hidden;margin-left:-8px">1</b>
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-right">
+            <li><a href="#">Edit Code</a></li>
+            <li><a href="/phpserver/project/console/{{project.p_id}}">Edit Env(Console)</a></li>
+            <li><button class="btn btn-default btn-sm" id="start_{{project.p_id}}" value="{{project.p_id}}" name="start" type="submit">Start Project</button></li>
+            <li><button class="btn btn-default btn-sm" id="stop_{{project.p_id}}" value="{{project.p_id}}" name="stop" type="submit">Stop Project</button></li>
+            <li><button class="btn btn-default btn-sm" id="delete_{{project.p_id}}" value="{{project.p_id}}" name="delete" type="submit">Delete Project</button></li>
+          </ul>
+        </div>
+      </td>
+    </tr>
+  {% endfor %}
+{% endblock table_body %}

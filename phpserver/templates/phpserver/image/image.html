@@ -1,0 +1,43 @@
+{% extends "phpserver/table_base.html" %}
+{% block title %}Image Management{% endblock %}
+
+{% block table_head %}
+<tr class="">
+  <th class="">
+    <div class="">
+      <a id="create_image_by_step" href="{% url 'phpserver:create_image_by_step' %}" class="btn btn-default btn-sm ajax-modal">Create Image By Step</a>
+      <a id="create_image_by_dockerfile" href="{% url 'phpserver:create_image_by_dockerfile' %}" class="btn btn-default btn-sm ajax-modal">{% block action_name %}Create Image By Dockerfile{% endblock %}</a>
+      <a href="{% url 'phpserver:search_image' %}" class="btn btn-default btn-sm ajax-modal">Search Image</button>
+    </div>
+  </th>
+</tr>
+<tr>
+  <th>Image Repository</th>
+  <th>Status</th>
+  <th>Actions</th>
+</tr>
+{% endblock table_head %}
+
+{% block table_body %}
+  {% for image in image_list %}
+    <tr>
+      <td><a href="/phpserver/image/details/{{image.img_id}}">{{image.repo}}</a></td>
+      <td>{{image.status}}</td>
+      <td>
+        <div class="btn-group">
+          <a href="#" class="btn btn-default btn-sm">Details</a>
+          <a href="#" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+            <b style="visibility:hidden;margin-left:-8px">1</b>
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-right">
+<!--             <li><button class="btn btn-default btn-sm" id="start_{{image.img_id}}" value="{{image.img_id}}" name="start" type="submit">Start Project</button></li>
+            <li><button class="btn btn-default btn-sm" id="stop_{{image.img_id}}" value="{{image.img_id}}" name="stop" type="submit">Stop Project</button></li> -->
+            <li><button class="btn btn-default btn-sm" id="delete_{{image.img_id}}" value="{{image.img_id}}" name="delete" type="submit">Delete Image</button></li>
+          </ul>
+        </div>
+      </td>
+    </tr>
+  {% endfor %}
+{% endblock table_body %}
+

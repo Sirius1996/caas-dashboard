@@ -1,0 +1,43 @@
+{% extends "phpserver/table_base.html" %}
+{% block title %}Container Management{% endblock %}
+
+{% block table_head %}
+<tr class="">
+  <th class="">
+    <div class="">
+      <a id="test_button" href="{% url 'phpserver:create_container' %}" class="btn btn-default btn-sm ajax-modal">{% block action_name %}Create Container{% endblock %}</a>
+    </div>
+  </th>
+</tr>
+<tr>
+  <th><b>Container Name</b></th>
+  <th><b>Image</b></th>
+  <th><b>Version</b></th>
+  <th><b>Description</b></th>
+  <th><b>Actions</b></th>
+</tr>
+{% endblock table_head %}
+
+{% block table_body %}
+  {% for container in container_list %}
+    <tr>
+      <td><a href="/phpserver/container/details/{{container.container_id}}">{{container.name}}</a></td>
+      <td>{{container.image_id}}</td>
+      <td>{{container.version}}</td>
+      <td>{{container.description}}</td>
+      <td>
+        <div class="btn-group">
+          <a href="#" class="btn btn-default btn-sm">Details</a>
+          <a href="#" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+            <b style="visibility:hidden;margin-left:-8px">1</b>
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-right">
+            <li><button class="btn btn-default btn-sm" id="delete_{{container.container_id}}" value="{{container.container_id}}" name="delete" type="submit">Delete Container</button></li>
+            <li><button class="btn btn-default btn-sm" id="trans_image_{{container.container_id}}" value="{{container.container_id}}" name="trans_image" type="submit">Save as Image</button></li>
+          </ul>
+        </div>
+      </td>
+    </tr>
+  {% endfor %}
+{% endblock table_body %}
